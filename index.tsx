@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { GoogleGenAI, Chat, FunctionCall, Type } from '@google/genai';
+import { GoogleGenAI, FunctionDeclaration, Type, FunctionCallingConfigMode } from '@google/genai';
 
 // --- TYPE DECLARATIONS for Google APIs ---
 // These are simplified types to avoid TypeScript errors without installing full @types packages.
@@ -21,6 +21,10 @@ interface GapiClient {
         singleEvents: boolean;
         orderBy: string;
       }) => Promise<{ result: { items: any[] } }>;
+      insert: (args: {
+        calendarId: string;
+        resource: any;
+      }) => Promise<{ result: any }>;
     };
   };
 }
@@ -55,11 +59,10 @@ declare const google: {
 // IMPORTANT: Replace with your Google Cloud client ID.
 const CLIENT_ID = '396514019259-ltmo1f09gpbus4bp42tprb43m2o2vj13.apps.googleusercontent.com';
 
-// To this
 const CALENDAR_SCOPE = 'https://www.googleapis.com/auth/calendar';
 
 let tokenClient: TokenClient | null = null;
-let chat: Chat | null = null;
+let chat: any = null;
 
 // --- DOM ELEMENTS ---
 const authContainer = document.getElementById('auth-container')!;
@@ -73,26 +76,49 @@ const loadingSpinner = document.getElementById('loading-spinner')!;
 
 // --- GEMINI SETUP ---
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY! });
-const tools = [
-  {
-    functionDeclarations: [
-      {
-        name: 'get_calendar_events',
-        description: "Get a list of events from the user's Google Calendar for a specific day.",
-        parameters: {
-          type: Type.OBJECT,
-          properties: {
-            date: {
-              type: Type.STRING,
-              description: "The date to get events for, in YYYY-MM-DD format. If not provided, defaults to today.",
-            },
-          },
-          required: [],
-        },
+
+// Function declarations for calendar operations
+const getCalendarEventsDeclaration: FunctionDeclaration = {
+  name: 'get_calendar_events',
+  description: "Get a list of events from the user's Google Calendar for a specific day.",
+  parameters: {
+    type: Type.OBJECT,
+    properties: {
+      date: {
+        type: Type.STRING,
+        description: "The date to get events for, in YYYY-MM-DD format. If not provided, defaults to today.",
       },
-    ],
+    },
+    required: [],
   },
-];
+};
+
+const createCalendarEventDeclaration: FunctionDeclaration = {
+  name: 'create_calendar_event',
+  description: "Create a new event in the user's Google Calendar.",
+  parameters: {
+    type: Type.OBJECT,
+    properties: {
+      summary: {
+        type: Type.STRING,
+        description: "The title/summary of the event.",
+      },
+      description: {
+        type: Type.STRING,
+        description: "Optional description of the event.",
+      },
+      startDateTime: {
+        type: Type.STRING,
+        description: "Start date and time of the event in ISO format or natural language (e.g., '2023-12-15T15:00:00' or 'next Monday at 3pm').",
+      },
+      endDateTime: {
+        type: Type.STRING,
+        description: "End date and time of the event in ISO format or natural language (e.g., '2023-12-15T17:00:00' or 'next Monday at 5pm').",
+      },
+    },
+    required: ["summary", "startDateTime", "endDateTime"],
+  },
+};
 
 // --- AUTHENTICATION & SCRIPT LOADING ---
 
@@ -187,13 +213,49 @@ async function getCalendarEvents({ date }: { date?: string } = {}) {
   }
 }
 
+async function createCalendarEvent({ summary, description, startDateTime, endDateTime }: { 
+  summary: string; 
+  description?: string; 
+  startDateTime: string; 
+  endDateTime: string;
+}) {
+  try {
+    const event = {
+      summary,
+      description,
+      start: {
+        dateTime: new Date(startDateTime).toISOString(),
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+      },
+      end: {
+        dateTime: new Date(endDateTime).toISOString(),
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+      }
+    };
+
+    const response = await gapi.client.calendar.events.insert({
+      calendarId: 'primary',
+      resource: event
+    });
+
+    return { 
+      success: true, 
+      event: response.result 
+    };
+  } catch (error) {
+    console.error('Calendar API Error:', error);
+    return { 
+      success: false, 
+      error: 'Failed to create calendar event.' 
+    };
+  }
+}
+
 // --- CHAT LOGIC ---
 function initializeChat() {
   if (chat) return;
-  chat = ai.chats.create({
-    model: 'gemini-2.5-flash-preview-04-17',
-    config: { tools },
-  });
+  // Initialize chat using the new API
+  chat = ai.chats;
 }
 
 function appendMessage(role: 'user' | 'bot', text: string): HTMLElement {
@@ -219,21 +281,68 @@ async function handleFormSubmit(e: Event) {
   loadingSpinner.classList.remove('hidden');
 
   try {
-    // Correctly call sendMessage with the user's prompt as a message object
-    let response = await chat.sendMessage({ message: userInput });
+    // Create conversation history
+    const conversationHistory = [];
     
-    const functionCall = response.candidates?.[0]?.content?.parts?.find(
-      (part) => part.functionCall
-    )?.functionCall;
+    // Add user message
+    conversationHistory.push({
+      role: 'user',
+      parts: [{ text: userInput }]
+    });
 
-    if (functionCall) {
+    // Generate content using the new API structure
+    let response = await ai.models.generateContent({
+      model: 'gemini-2.0-flash-001',
+      contents: conversationHistory,
+      config: {
+        tools: [{
+          functionDeclarations: [getCalendarEventsDeclaration, createCalendarEventDeclaration]
+        }],
+        toolConfig: {
+          functionCallingConfig: {
+            mode: FunctionCallingConfigMode.AUTO
+          }
+        }
+      }
+    });
+
+    // Check if there are function calls to execute
+    if (response.functionCalls && response.functionCalls.length > 0) {
+      const functionCall = response.functionCalls[0];
+      let functionResult;
+
       if (functionCall.name === 'get_calendar_events') {
-        const result = await getCalendarEvents(functionCall.args as any);
-        // Correctly send the function response back as part of a message object
-        response = await chat.sendMessage({
-          message: [
-            { functionResponse: { name: 'get_calendar_events', response: result } },
-          ],
+        functionResult = await getCalendarEvents(functionCall.args as any);
+      } else if (functionCall.name === 'create_calendar_event') {
+        functionResult = await createCalendarEvent(functionCall.args as any);
+      }
+
+      if (functionResult) {
+        // Add the function call and response to conversation history
+        conversationHistory.push({
+          role: 'model',
+          parts: [{ functionCall: functionCall }]
+        });
+        
+        conversationHistory.push({
+          role: 'function',
+          parts: [{
+            functionResponse: {
+              name: functionCall.name,
+              response: functionResult
+            }
+          }]
+        });
+
+        // Generate final response with function result
+        response = await ai.models.generateContent({
+          model: 'gemini-2.0-flash-001',
+          contents: conversationHistory,
+          config: {
+            tools: [{
+              functionDeclarations: [getCalendarEventsDeclaration, createCalendarEventDeclaration]
+            }]
+          }
         });
       }
     }
@@ -246,6 +355,36 @@ async function handleFormSubmit(e: Event) {
   } finally {
     loadingSpinner.classList.add('hidden');
   }
+}
+
+function parseDateTime(dateTimeString: string): Date {
+  // Try to parse as ISO format first
+  const isoDate = new Date(dateTimeString);
+  if (!isNaN(isoDate.getTime())) {
+    return isoDate;
+  }
+  
+  // If not ISO format, try to parse natural language
+  // This is a simplified example - in a real app, you might want to use a library like date-fns or moment.js
+  const now = new Date();
+  
+  // Example: Handle "next week Monday at 3pm"
+  if (dateTimeString.includes('next week') || dateTimeString.includes('next Monday')) {
+    const targetDate = new Date(now);
+    targetDate.setDate(now.getDate() + 7); // Add 7 days
+    
+    // Set time if specified
+    if (dateTimeString.includes('3pm') || dateTimeString.includes('3 pm')) {
+      targetDate.setHours(15, 0, 0, 0);
+    } else if (dateTimeString.includes('5pm') || dateTimeString.includes('5 pm')) {
+      targetDate.setHours(17, 0, 0, 0);
+    }
+    
+    return targetDate;
+  }
+  
+  // Default to current date/time if parsing fails
+  return now;
 }
 
 // --- INITIALIZATION ---
