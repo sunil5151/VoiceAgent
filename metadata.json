@@ -1,0 +1,4 @@
+{
+  "name": "Calendar Assistant",
+  "description": "A conversational AI agent that uses Gemini and function calling to access your Google Calendar."
+}
