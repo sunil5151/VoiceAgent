@@ -61,8 +61,38 @@ const CLIENT_ID = '396514019259-ltmo1f09gpbus4bp42tprb43m2o2vj13.apps.googleuser
 
 const CALENDAR_SCOPE = 'https://www.googleapis.com/auth/calendar';
 
+// Add these variables after the existing variable declarations (around line 60)
 let tokenClient: TokenClient | null = null;
 let chat: any = null;
+
+// Add these new variables
+let conversationHistory: Array<{role: string, parts: Array<{text?: string, functionCall?: any, functionResponse?: any}>}> = [];
+
+// Current date awareness constants
+const CURRENT_DATE = new Date(2025, 5, 27); // June 27, 2025
+
+// Helper function to parse relative dates
+function parseRelativeDate(dateText: string): Date {
+  const result = new Date(CURRENT_DATE);
+  
+  if (dateText.toLowerCase().includes('tomorrow')) {
+    result.setDate(CURRENT_DATE.getDate() + 1); // June 28, 2025
+  } else if (dateText.toLowerCase().includes('yesterday')) {
+    result.setDate(CURRENT_DATE.getDate() - 1); // June 26, 2025
+  } else if (dateText.toLowerCase().includes('today')) {
+    // Already set to CURRENT_DATE
+  } else if (dateText.toLowerCase().includes('next week')) {
+    result.setDate(CURRENT_DATE.getDate() + 7);
+  } else {
+    // Try to parse as a specific date
+    const specificDate = new Date(dateText);
+    if (!isNaN(specificDate.getTime())) {
+      return specificDate;
+    }
+  }
+  
+  return result;
+}
 
 // --- DOM ELEMENTS ---
 const authContainer = document.getElementById('auth-container')!;
@@ -175,9 +205,10 @@ function updateUiForAuthState(isSignedIn: boolean) {
     authContainer.classList.remove('hidden');
     chatContainer.classList.add('hidden');
     chat = null;
+    conversationHistory = []; // Reset conversation history
     messageList.innerHTML = `
       <div class="message bot-message">
-        <p>I'm ready! Ask me about your schedule, for example: "What do I have going on tomorrow?"</p>
+        <p>I'm ready! Today is Friday, June 27, 2025. Ask me about your schedule or to create events. For example: "What do I have going on tomorrow?" or "Schedule a team meeting next Tuesday at 2pm."</p>
       </div>`;
   }
 }
@@ -281,16 +312,13 @@ async function handleFormSubmit(e: Event) {
   loadingSpinner.classList.remove('hidden');
 
   try {
-    // Create conversation history
-    const conversationHistory = [];
-    
-    // Add user message
+    // Add user message to conversation history
     conversationHistory.push({
       role: 'user',
       parts: [{ text: userInput }]
     });
 
-    // Generate content using the new API structure
+    // Generate content using the conversation history for context
     let response = await ai.models.generateContent({
       model: 'gemini-2.0-flash-001',
       contents: conversationHistory,
@@ -312,9 +340,28 @@ async function handleFormSubmit(e: Event) {
       let functionResult;
 
       if (functionCall.name === 'get_calendar_events') {
-        functionResult = await getCalendarEvents(functionCall.args as any);
+        // Parse the date if it's a relative date
+        const args = functionCall.args as any;
+        if (args.date) {
+          const parsedDate = parseRelativeDate(args.date);
+          args.date = parsedDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+        }
+        functionResult = await getCalendarEvents(args);
       } else if (functionCall.name === 'create_calendar_event') {
-        functionResult = await createCalendarEvent(functionCall.args as any);
+        const args = functionCall.args as any;
+        
+        // Parse start and end times if they contain relative dates
+        if (args.startDateTime) {
+          const parsedStartDate = parseDateTime(args.startDateTime);
+          args.startDateTime = parsedStartDate.toISOString();
+        }
+        
+        if (args.endDateTime) {
+          const parsedEndDate = parseDateTime(args.endDateTime);
+          args.endDateTime = parsedEndDate.toISOString();
+        }
+        
+        functionResult = await createCalendarEvent(args);
       }
 
       if (functionResult) {
@@ -347,6 +394,12 @@ async function handleFormSubmit(e: Event) {
       }
     }
 
+    // Add model response to conversation history
+    conversationHistory.push({
+      role: 'model',
+      parts: [{ text: response.text || 'No response received' }]
+    });
+
     const botMessageText = (response.text || 'No response received').replace(/\n/g, '<br>');
     appendMessage('bot', botMessageText);
   } catch (error) {
@@ -364,27 +417,45 @@ function parseDateTime(dateTimeString: string): Date {
     return isoDate;
   }
   
-  // If not ISO format, try to parse natural language
-  // This is a simplified example - in a real app, you might want to use a library like date-fns or moment.js
-  const now = new Date();
+  // Start with our reference date (June 27, 2025)
+  const baseDate = new Date(CURRENT_DATE);
   
-  // Example: Handle "next week Monday at 3pm"
-  if (dateTimeString.includes('next week') || dateTimeString.includes('next Monday')) {
-    const targetDate = new Date(now);
-    targetDate.setDate(now.getDate() + 7); // Add 7 days
-    
-    // Set time if specified
-    if (dateTimeString.includes('3pm') || dateTimeString.includes('3 pm')) {
-      targetDate.setHours(15, 0, 0, 0);
-    } else if (dateTimeString.includes('5pm') || dateTimeString.includes('5 pm')) {
-      targetDate.setHours(17, 0, 0, 0);
-    }
-    
-    return targetDate;
+  // Handle relative dates
+  if (dateTimeString.toLowerCase().includes('tomorrow')) {
+    baseDate.setDate(CURRENT_DATE.getDate() + 1); // June 28, 2025
+  } else if (dateTimeString.toLowerCase().includes('yesterday')) {
+    baseDate.setDate(CURRENT_DATE.getDate() - 1); // June 26, 2025
+  } else if (dateTimeString.toLowerCase().includes('next week')) {
+    baseDate.setDate(CURRENT_DATE.getDate() + 7);
   }
   
-  // Default to current date/time if parsing fails
-  return now;
+  // Extract time if specified
+  const timeMatch = dateTimeString.match(/(\d+)(?:\s*)(?::|am|pm|AM|PM)/);
+  if (timeMatch) {
+    let hour = parseInt(timeMatch[1]);
+    
+    // Handle AM/PM
+    if (dateTimeString.toLowerCase().includes('pm') && hour < 12) {
+      hour += 12;
+    } else if (dateTimeString.toLowerCase().includes('am') && hour === 12) {
+      hour = 0;
+    }
+    
+    baseDate.setHours(hour);
+    
+    // Try to extract minutes
+    const minuteMatch = dateTimeString.match(/:([0-5][0-9])/);
+    if (minuteMatch) {
+      baseDate.setMinutes(parseInt(minuteMatch[1]));
+    } else {
+      baseDate.setMinutes(0);
+    }
+    
+    baseDate.setSeconds(0);
+    baseDate.setMilliseconds(0);
+  }
+  
+  return baseDate;
 }
 
 // --- INITIALIZATION ---
