@@ -334,3 +334,2862 @@ header h2 {
     max-width: 90%;
   }
 }
+
+#voice-message-button {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border: none;
+  background-color: #28a745;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+#voice-message-button:hover {
+  background-color: #218838;
+}
+
+#voice-message-button.recording {
+  animation: pulse-green 1.5s infinite;
+}
+
+#voice-message-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+@keyframes pulse-green {
+  0% {
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+  }
+}
+
+/* Update existing chat-form to accommodate the mic button */
+#chat-form {
+  display: flex;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--header-bg);
+  gap: 0.5rem;
+}
+
+#chat-input {
+  flex-grow: 1;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 50px;
+  font-size: 1rem;
+  background-color: #f8f9fa;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#chat-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+#chat-form button {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border: none;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+#chat-form button:hover {
+  background-color: #0056b3;
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+#chat-form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Utility Classes --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+  main {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  .message {
+    max-width: 90%;
+  }
+}

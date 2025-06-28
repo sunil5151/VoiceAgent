@@ -17,7 +17,8 @@ import {
   isAudioMode,
   initializeSpeechRecognition,
   initializeSpeechSynthesis,
-  speakText
+  speakText,
+  setVoiceMessageButtonState
 } from './audioService';
 
 // IMPORTANT: Replace with your Google Cloud client ID.
@@ -140,6 +141,9 @@ async function handleFormSubmit(e: Event) {
   chatInput.value = '';
   appendMessage('user', userInput);
   loadingSpinner.classList.remove('hidden');
+  
+  // Disable voice message button while processing
+  setVoiceMessageButtonState(false);
 
   try {
     // Add user message to conversation history
@@ -237,6 +241,8 @@ async function handleFormSubmit(e: Event) {
     appendMessage('bot', 'Sorry, I encountered an error. Please try again.');
   } finally {
     loadingSpinner.classList.add('hidden');
+    // Re-enable voice message button after response
+    setVoiceMessageButtonState(true);
   }
 }
 

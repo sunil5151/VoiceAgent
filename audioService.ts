@@ -11,6 +11,7 @@ export let recognition: SpeechRecognition | null = null;
 export let speechSynthesis: SpeechSynthesis | null = null;
 export let isSpeaking = false;
 export let isListening = false;
+export let isRecordingVoiceMessage = false;
 
 // DOM elements for audio functionality
 export const textModeButton = document.getElementById('text-mode-button') as HTMLButtonElement;
@@ -18,6 +19,7 @@ export const audioModeButton = document.getElementById('audio-mode-button') as H
 export const micButton = document.getElementById('mic-button') as HTMLButtonElement;
 export const chatInput = document.getElementById('chat-input') as HTMLInputElement;
 export const chatForm = document.getElementById('chat-form') as HTMLFormElement;
+export const voiceMessageButton = document.getElementById('voice-message-button') as HTMLButtonElement;
 
 // --- SPEECH RECOGNITION ---
 export function initializeSpeechRecognition() {
@@ -43,11 +45,15 @@ export function initializeSpeechRecognition() {
     micButton.classList.remove('recording');
   };
   
+  // Modify the existing recognition.onresult handler to work with voice messages
   recognition.onresult = (event) => {
     const transcript = event.results[0][0].transcript;
     chatInput.value = transcript;
-    // Auto-submit after speech recognition
-    if (transcript.trim()) {
+    
+    // Auto-submit after speech recognition if it was a voice message
+    if (transcript.trim() && isRecordingVoiceMessage) {
+      isRecordingVoiceMessage = false;
+      voiceMessageButton.classList.remove('recording');
       chatForm.dispatchEvent(new Event('submit'));
     }
   };
@@ -57,6 +63,28 @@ export function initializeSpeechRecognition() {
     isListening = false;
     micButton.classList.remove('recording');
   };
+}
+
+// Add this function to handle voice message recording
+export function handleVoiceMessageButtonClick() {
+  if (!recognition) return;
+  
+  if (isRecordingVoiceMessage) {
+    // Stop recording
+    recognition.stop();
+    isRecordingVoiceMessage = false;
+    voiceMessageButton.classList.remove('recording');
+  } else {
+    // Start recording
+    recognition.start();
+    isRecordingVoiceMessage = true;
+    voiceMessageButton.classList.add('recording');
+  }
+}
+
+// Add this function to disable/enable the voice message button
+export function setVoiceMessageButtonState(enabled: boolean) {
+  voiceMessageButton.disabled = !enabled;
 }
 
 export function toggleSpeechRecognition() {
@@ -101,6 +129,13 @@ export function speakText(text: string) {
   
   utterance.onend = () => {
     isSpeaking = false;
+    
+    // Automatically activate voice message button after bot finishes speaking
+    if (isAudioMode && !isRecordingVoiceMessage) {
+      setTimeout(() => {
+        handleVoiceMessageButtonClick();
+      }, 500); // Small delay to ensure UI is ready
+    }
   };
   
   utterance.onerror = (event) => {
@@ -134,6 +169,7 @@ export function switchToAudioMode() {
 textModeButton.addEventListener('click', switchToTextMode);
 audioModeButton.addEventListener('click', switchToAudioMode);
 micButton.addEventListener('click', toggleSpeechRecognition);
+voiceMessageButton.addEventListener('click', handleVoiceMessageButtonClick);
 
 // Initialize in text mode by default
 switchToTextMode();
