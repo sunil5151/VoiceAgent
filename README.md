@@ -1,10 +1,10 @@
 # Conversational AI Agent (VoiceAgent) 🚀🗣️
 
 ---
-## 🌐 Live Project
+## 🎬 Walkthrough Demo
 
-**Try it live:**  
-(https://voiceagent-bsrg.onrender.com) <!-- Replace with your actual Render URL -->
+*👉 ( https://drive.google.com/file/d/1MgVpLaxoopk_1_9yVJIQoiwGxH55rl8i/view?usp=sharing ) 
+
 
 
 ## 🌟 Professional Overview
@@ -48,16 +48,7 @@
 - **Web Speech API (SpeechRecognition & SpeechSynthesis)**
 - **Google OAuth & Calendar API**
 
----
 
-## 🎬 Walkthrough Demo
-
-*👉 [Video Demo – Click here](#) (Upload your video walkthrough and update this link)*
-
----
-
-
----
 
 ## ⚡ Use Cases
 
