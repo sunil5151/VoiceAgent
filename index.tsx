@@ -28,12 +28,39 @@ interface GapiClient {
     };
   };
 }
-
+interface SpeechRecognition extends EventTarget {
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  maxAlternatives: number;
+  onaudioend: ((this: SpeechRecognition, ev: Event) => any) | null;
+  onaudiostart: ((this: SpeechRecognition, ev: Event) => any) | null;
+  onend: ((this: SpeechRecognition, ev: Event) => any) | null;
+  onerror: ((this: SpeechRecognition, ev: SpeechRecognitionErrorEvent) => any) | null;
+  onnomatch: ((this: SpeechRecognition, ev: Event) => any) | null;
+  onresult: ((this: SpeechRecognition, ev: SpeechRecognitionEvent) => any) | null;
+  onsoundend: ((this: SpeechRecognition, ev: Event) => any) | null;
+  onsoundstart: ((this: SpeechRecognition, ev: Event) => any) | null;
+  onspeechend: ((this: SpeechRecognition, ev: Event) => any) | null;
+  onspeechstart: ((this: SpeechRecognition, ev: Event) => any) | null;
+  onstart: ((this: SpeechRecognition, ev: Event) => any) | null;
+  start(): void;
+  stop(): void;
+  abort(): void;
+}
+interface SpeechRecognitionErrorEvent extends Event {
+  error: string;
+  message: string;
+}
 declare const gapi: {
   load: (api: string, callback: () => void) => void;
   client: GapiClient;
 };
-
+interface SpeechRecognitionEvent extends Event {
+  results: SpeechRecognitionResultList;
+  resultIndex: number;
+  interpretation: any;
+}
 interface TokenResponse {
   access_token: string;
   error?: any;
@@ -71,6 +98,13 @@ let conversationHistory: Array<{role: string, parts: Array<{text?: string, funct
 // Current date awareness constants
 const CURRENT_DATE = new Date(2025, 5, 27); // June 27, 2025
 
+// Audio mode variables
+let isAudioMode = false;
+let recognition: SpeechRecognition | null = null;
+let speechSynthesis: SpeechSynthesis | null = null;
+let isSpeaking = false;
+let isListening = false;
+
 // Helper function to parse relative dates
 function parseRelativeDate(dateText: string): Date {
   const result = new Date(CURRENT_DATE);
@@ -103,6 +137,12 @@ const messageList = document.getElementById('message-list')!;
 const chatForm = document.getElementById('chat-form') as HTMLFormElement;
 const chatInput = document.getElementById('chat-input') as HTMLInputElement;
 const loadingSpinner = document.getElementById('loading-spinner')!;
+
+// New DOM elements for audio functionality
+const textModeButton = document.getElementById('text-mode-button') as HTMLButtonElement;
+const audioModeButton = document.getElementById('audio-mode-button') as HTMLButtonElement;
+const micButton = document.getElementById('mic-button') as HTMLButtonElement;
+const sendButton = document.getElementById('send-button') as HTMLButtonElement;
 
 // --- GEMINI SETUP ---
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY! });
@@ -201,6 +241,8 @@ function updateUiForAuthState(isSignedIn: boolean) {
     authContainer.classList.add('hidden');
     chatContainer.classList.remove('hidden');
     initializeChat();
+    initializeSpeechRecognition();
+    initializeSpeechSynthesis();
   } else {
     authContainer.classList.remove('hidden');
     chatContainer.classList.add('hidden');
@@ -295,6 +337,12 @@ function appendMessage(role: 'user' | 'bot', text: string): HTMLElement {
   messageEl.innerHTML = `<p>${text}</p>`;
   messageList.appendChild(messageEl);
   messageList.scrollTop = messageList.scrollHeight;
+  
+  // If in audio mode and it's a bot message, speak the response
+  if (isAudioMode && role === 'bot' && speechSynthesis) {
+    speakText(text);
+  }
+  
   return messageEl;
 }
 
@@ -458,6 +506,117 @@ function parseDateTime(dateTimeString: string): Date {
   return baseDate;
 }
 
+// --- SPEECH RECOGNITION ---
+function initializeSpeechRecognition() {
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    console.warn('Speech recognition not supported in this browser');
+    audioModeButton.disabled = true;
+    return;
+  }
+  
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = false;
+  recognition.lang = 'en-US';
+  
+  recognition.onstart = () => {
+    isListening = true;
+    micButton.classList.add('recording');
+  };
+  
+  recognition.onend = () => {
+    isListening = false;
+    micButton.classList.remove('recording');
+  };
+  
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    chatInput.value = transcript;
+    // Auto-submit after speech recognition
+    if (transcript.trim()) {
+      chatForm.dispatchEvent(new Event('submit'));
+    }
+  };
+  
+  recognition.onerror = (event) => {
+    console.error('Speech recognition error', event.error);
+    isListening = false;
+    micButton.classList.remove('recording');
+  };
+}
+
+function toggleSpeechRecognition() {
+  if (!recognition) return;
+  
+  if (isListening) {
+    recognition.stop();
+  } else {
+    recognition.start();
+  }
+}
+
+// --- SPEECH SYNTHESIS ---
+function initializeSpeechSynthesis() {
+  if (!('speechSynthesis' in window)) {
+    console.warn('Speech synthesis not supported in this browser');
+    return;
+  }
+  
+  speechSynthesis = window.speechSynthesis;
+}
+
+function speakText(text: string) {
+  if (!speechSynthesis) return;
+  
+  // Stop any current speech
+  if (isSpeaking) {
+    speechSynthesis.cancel();
+  }
+  
+  // Clean up the text (remove HTML tags)
+  const cleanText = text.replace(/<br>/g, ' ').replace(/<[^>]*>/g, '');
+  
+  const utterance = new SpeechSynthesisUtterance(cleanText);
+  utterance.lang = 'en-US';
+  utterance.rate = 1.0;
+  utterance.pitch = 1.0;
+  
+  utterance.onstart = () => {
+    isSpeaking = true;
+  };
+  
+  utterance.onend = () => {
+    isSpeaking = false;
+  };
+  
+  utterance.onerror = (event) => {
+    console.error('Speech synthesis error', event);
+    isSpeaking = false;
+  };
+  
+  speechSynthesis.speak(utterance);
+}
+
+// --- INPUT MODE SWITCHING ---
+function switchToTextMode() {
+  isAudioMode = false;
+  textModeButton.classList.add('active');
+  audioModeButton.classList.remove('active');
+  micButton.classList.add('hidden');
+  chatInput.placeholder = 'Ask about your calendar...';
+  chatInput.disabled = false;
+  chatInput.focus();
+}
+
+function switchToAudioMode() {
+  isAudioMode = true;
+  audioModeButton.classList.add('active');
+  textModeButton.classList.remove('active');
+  micButton.classList.remove('hidden');
+  chatInput.placeholder = 'Speak or type your question...';
+}
+
 // --- INITIALIZATION ---
 function loadGoogleApiScripts() {
   const gapiScript = document.createElement('script');
@@ -477,9 +636,18 @@ function loadGoogleApiScripts() {
 
 loadGoogleApiScripts();
 
+// Event listeners
 authButton.addEventListener('click', handleAuthClick);
 signoutButton.addEventListener('click', handleSignoutClick);
 chatForm.addEventListener('submit', handleFormSubmit);
+
+// Add new event listeners for audio functionality
+textModeButton.addEventListener('click', switchToTextMode);
+audioModeButton.addEventListener('click', switchToAudioMode);
+micButton.addEventListener('click', toggleSpeechRecognition);
+
+// Initialize in text mode by default
+switchToTextMode();
 
 if (CLIENT_ID !== '396514019259-ltmo1f09gpbus4bp42tprb43m2o2vj13.apps.googleusercontent.com') {
   alert('Please replace the CLIENT_ID with your actual Google Client ID.');
