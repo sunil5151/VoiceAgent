@@ -18,6 +18,7 @@ export default defineConfig(({ mode }) => {
     server: {
       host: '0.0.0.0',
       port: process.env.PORT ? parseInt(process.env.PORT) : 5173,
+      allowedHosts: ['voiceagent-bsrg.onrender.com','localhost','127.0.0.1'],
       headers: {
         'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
         'Cross-Origin-Embedder-Policy': 'unsafe-none'
