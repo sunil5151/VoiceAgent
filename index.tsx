@@ -83,8 +83,8 @@ declare const google: {
   };
 };
 
-// IMPORTANT: Replace with your Google Cloud client ID.
-const CLIENT_ID = '396514019259-ltmo1f09gpbus4bp42tprb43m2o2vj13.apps.googleusercontent.com';
+// IMPORTANT: Replace with your Google Cloud client ID.396514019259-ltmo1f09gpbus4bp42tprb43m2o2vj13.apps.googleusercontent.com
+const CLIENT_ID = '282097217995-716qa2a93mseu20q7gqftft4qmiggg86.apps.googleusercontent.com';
 
 const CALENDAR_SCOPE = 'https://www.googleapis.com/auth/calendar';
 
