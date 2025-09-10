@@ -41,7 +41,7 @@ const chatInput = document.getElementById('chat-input') as HTMLInputElement;
 const loadingSpinner = document.getElementById('loading-spinner')!;
 
 // --- GEMINI SETUP ---
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY! });
+const ai = new GoogleGenAI({ apiKey: 'AIzaSyDq99cqG8Jn_paSIlDlGvptywaUqWz-KDs' });
 
 // --- AUTHENTICATION & SCRIPT LOADING ---
 function gapiLoaded() {
@@ -74,7 +74,17 @@ function handleTokenResponse(resp: TokenResponse) {
 
 function handleAuthClick() {
   if (tokenClient) {
-    tokenClient.requestAccessToken({ prompt: 'consent' });
+    // Check if gapi is properly initialized
+    if (typeof gapi === 'undefined' || !gapi.client) {
+      alert('Google API is not ready. Please wait a moment and try again.');
+      return;
+    }
+    
+    tokenClient.requestAccessToken({ 
+      prompt: 'consent'
+    });
+  } else {
+    alert('Authentication client is not initialized. Please refresh the page.');
   }
 }
 

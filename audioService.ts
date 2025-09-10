@@ -14,18 +14,20 @@ export let isListening = false;
 export let isRecordingVoiceMessage = false;
 
 // DOM elements for audio functionality
-export const textModeButton = document.getElementById('text-mode-button') as HTMLButtonElement;
-export const audioModeButton = document.getElementById('audio-mode-button') as HTMLButtonElement;
-export const micButton = document.getElementById('mic-button') as HTMLButtonElement;
-export const chatInput = document.getElementById('chat-input') as HTMLInputElement;
-export const chatForm = document.getElementById('chat-form') as HTMLFormElement;
-export const voiceMessageButton = document.getElementById('voice-message-button') as HTMLButtonElement;
+export const textModeButton = document.getElementById('text-mode-button') as HTMLButtonElement | null;
+export const audioModeButton = document.getElementById('audio-mode-button') as HTMLButtonElement | null;
+export const micButton = document.getElementById('mic-button') as HTMLButtonElement | null;
+export const chatInput = document.getElementById('chat-input') as HTMLInputElement | null;
+export const chatForm = document.getElementById('chat-form') as HTMLFormElement | null;
+export const voiceMessageButton = document.getElementById('voice-message-button') as HTMLButtonElement | null;
 
 // --- SPEECH RECOGNITION ---
 export function initializeSpeechRecognition() {
   if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
     console.warn('Speech recognition not supported in this browser');
-    audioModeButton.disabled = true;
+    if (audioModeButton) {
+      audioModeButton.disabled = true;
+    }
     return;
   }
   
@@ -37,31 +39,43 @@ export function initializeSpeechRecognition() {
   
   recognition.onstart = () => {
     isListening = true;
-    micButton.classList.add('recording');
+    if (micButton) {
+      micButton.classList.add('recording');
+    }
   };
   
   recognition.onend = () => {
     isListening = false;
-    micButton.classList.remove('recording');
+    if (micButton) {
+      micButton.classList.remove('recording');
+    }
   };
   
   // Modify the existing recognition.onresult handler to work with voice messages
   recognition.onresult = (event) => {
     const transcript = event.results[0][0].transcript;
-    chatInput.value = transcript;
+    if (chatInput) {
+      chatInput.value = transcript;
+    }
     
     // Auto-submit after speech recognition if it was a voice message
     if (transcript.trim() && isRecordingVoiceMessage) {
       isRecordingVoiceMessage = false;
-      voiceMessageButton.classList.remove('recording');
-      chatForm.dispatchEvent(new Event('submit'));
+      if (voiceMessageButton) {
+        voiceMessageButton.classList.remove('recording');
+      }
+      if (chatForm) {
+        chatForm.dispatchEvent(new Event('submit'));
+      }
     }
   };
   
   recognition.onerror = (event) => {
     console.error('Speech recognition error', event.error);
     isListening = false;
-    micButton.classList.remove('recording');
+    if (micButton) {
+      micButton.classList.remove('recording');
+    }
   };
 }
 
@@ -73,18 +87,24 @@ export function handleVoiceMessageButtonClick() {
     // Stop recording
     recognition.stop();
     isRecordingVoiceMessage = false;
-    voiceMessageButton.classList.remove('recording');
+    if (voiceMessageButton) {
+      voiceMessageButton.classList.remove('recording');
+    }
   } else {
     // Start recording
     recognition.start();
     isRecordingVoiceMessage = true;
-    voiceMessageButton.classList.add('recording');
+    if (voiceMessageButton) {
+      voiceMessageButton.classList.add('recording');
+    }
   }
 }
 
 // Add this function to disable/enable the voice message button
 export function setVoiceMessageButtonState(enabled: boolean) {
-  voiceMessageButton.disabled = !enabled;
+  if (voiceMessageButton) {
+    voiceMessageButton.disabled = !enabled;
+  }
 }
 
 export function toggleSpeechRecognition() {
@@ -149,27 +169,51 @@ export function speakText(text: string) {
 // --- INPUT MODE SWITCHING ---
 export function switchToTextMode() {
   isAudioMode = false;
-  textModeButton.classList.add('active');
-  audioModeButton.classList.remove('active');
-  micButton.classList.add('hidden');
-  chatInput.placeholder = 'Ask about your calendar...';
-  chatInput.disabled = false;
-  chatInput.focus();
+  if (textModeButton) {
+    textModeButton.classList.add('active');
+  }
+  if (audioModeButton) {
+    audioModeButton.classList.remove('active');
+  }
+  if (micButton) {
+    micButton.classList.add('hidden');
+  }
+  if (chatInput) {
+    chatInput.placeholder = 'Ask about your calendar...';
+    chatInput.disabled = false;
+    chatInput.focus();
+  }
 }
 
 export function switchToAudioMode() {
   isAudioMode = true;
-  audioModeButton.classList.add('active');
-  textModeButton.classList.remove('active');
-  micButton.classList.remove('hidden');
-  chatInput.placeholder = 'Speak or type your question...';
+  if (audioModeButton) {
+    audioModeButton.classList.add('active');
+  }
+  if (textModeButton) {
+    textModeButton.classList.remove('active');
+  }
+  if (micButton) {
+    micButton.classList.remove('hidden');
+  }
+  if (chatInput) {
+    chatInput.placeholder = 'Speak or type your question...';
+  }
 }
 
 // Event listeners for audio functionality
-textModeButton.addEventListener('click', switchToTextMode);
-audioModeButton.addEventListener('click', switchToAudioMode);
-micButton.addEventListener('click', toggleSpeechRecognition);
-voiceMessageButton.addEventListener('click', handleVoiceMessageButtonClick);
+if (textModeButton) {
+  textModeButton.addEventListener('click', switchToTextMode);
+}
+if (audioModeButton) {
+  audioModeButton.addEventListener('click', switchToAudioMode);
+}
+if (micButton) {
+  micButton.addEventListener('click', toggleSpeechRecognition);
+}
+if (voiceMessageButton) {
+  voiceMessageButton.addEventListener('click', handleVoiceMessageButtonClick);
+}
 
 // Initialize in text mode by default
 switchToTextMode();
